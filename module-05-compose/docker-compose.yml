@@ -1,0 +1,18 @@
+services:
+  api:
+    image: iris-serving:v1.0
+    networks:
+      - ml-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - api
+    networks:
+      - ml-network
+networks:
+  ml-network:
